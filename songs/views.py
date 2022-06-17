@@ -24,13 +24,13 @@ def song_list(request):
 def song_detail(request, pk):
     songs = get_object_or_404(Song, pk=pk)
     if request.method =='GET':
-        serializer= SongSerializer(songs)
+        serializer= SongSerializer(songs);
         return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method =='PUT':
         serializer= SongSerializer(songs,data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Request (serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method == 'DELETE':
         songs.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
